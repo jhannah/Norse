@@ -12,7 +12,7 @@ RUN npm install --global nx@latest
 RUN apk update
 RUN apk upgrade
 
-# Keycloak 
+# Keycloak
 #   Here's a long version: https://www.aloneguid.uk/posts/2021/05/keycloak-docker/
 #   But I found it in edge/testing, so let's use that instead?
 #     WHOOPS! This WAS here two weeks ago, no longer exists.

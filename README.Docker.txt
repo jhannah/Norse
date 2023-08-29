@@ -4,8 +4,17 @@ The happy path (more automation to come):
 
 docker build -t norse .
 docker compose up
-# Create the Elasticsearch index we'll use:
+# Create the Elasticsearch indexes we'll use:
 curl -X PUT "http://localhost:9200/0-taxonomies_v2_en" \
+  -H "Content-Type: application/json" -d '{
+    "mappings": {
+      "properties": {
+        "name": { "type": "search_as_you_type" },
+        "code": { "type": "search_as_you_type" }
+      }
+    }
+  }'
+curl -X PUT "http://localhost:9200/0-results_v2_en" \
   -H "Content-Type: application/json" -d '{
     "mappings": {
       "properties": {

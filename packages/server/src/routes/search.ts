@@ -34,8 +34,12 @@ const QuerySchema = z.object({
   tenant_id: z.string().default(''),
 });
 router.get('/', async (req, res) => {
+  console.log("JAY I'm gonna try to try");
   try {
+    console.log("JAY welcome to try/catch");
+
     const q = await QuerySchema.parseAsync(req.query);
+    console.log("JAY tenant ID is " + q.tenant_id);
     const skip = (q.page - 1) * 25;
     const aggs: any = {};
     let coords: string[] | null =
@@ -65,7 +69,7 @@ router.get('/', async (req, res) => {
     };
 
     // This output doesn't show up anywhere?
-    console.log("JAY tenant ID is " + q.tenant_id)
+    console.log("JAY tenant ID is " + q.tenant_id);
     if (
       q.query_type === 'text' &&
       q.query.length > 0 &&
@@ -201,6 +205,7 @@ router.get('/', async (req, res) => {
       queryBuilder.query.bool.filter = filters;
     }
 
+    console.log("JAY can I dump queryBuilder? " + queryBuilder);
     const data = await ElasticClient.search(queryBuilder);
 
     const facets: any = {};
