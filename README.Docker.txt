@@ -2,7 +2,7 @@ Experimenting with Docker-izing Norse
 
 The happy path (more automation to come):
 
-docker build -t norse .
+# docker build -t norse .
 docker compose up
 # Create the Elasticsearch indexes we'll use:
 curl -X PUT "http://localhost:9200/0-taxonomies_v2_en" \
@@ -23,9 +23,9 @@ docker logs -f norse-norse-1
 Jay's ugly notes while debugging / struggling
 ---------------
 # docker image rm --force norse; docker build --progress=plain -t norse .
-docker container rm norse-norse-1
+docker container rm norse-server-1 norse-client-1
 docker image rm norse
-docker build -t norse .
+# docker build -t norse .
 docker compose up
 
 # docker container stop norse; docker container rm norse; docker run -dp 127.0.0.1:4200:4200 --name norse norse

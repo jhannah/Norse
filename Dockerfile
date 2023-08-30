@@ -24,7 +24,8 @@ RUN apk upgrade
 
 # Misc temporary Jay-debugging things:
 RUN apk add curl
-ENV NODE_ENV="development"
+# Moved to docker-compose.yml
+# ENV NODE_ENV="development"
 
 # --------------------------------------------
 # This invalidates all Docker caches, so do this LAST for faster DEV cycles
@@ -33,12 +34,13 @@ COPY . .
 # -------------------------
 # All these rumors sent to me via Slack / Discord. I don't know what these do...
 # These should end up in a config file somewhere?
+# Next.js:
 ENV NEXT_PUBLIC_MAPBOX_API_KEY=""
 ENV NEXT_PUBLIC_GTM_CONTAINER_ID=""
 ENV NEXT_PUBLIC_API_URL="http://localhost:3001"
 ENV NEXT_PUBLIC_TENANT_ID="0"
 ENV NEXT_PUBLIC_MAPBOX_STYLE_URL=""
-# Required Next Auth environment variables
+# NextAuth.js:
 ENV NEXTAUTH_URL="http://localhost:4200"
 ENV NEXTAUTH_SECRET="12345"
 # -------------------------

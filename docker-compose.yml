@@ -11,6 +11,7 @@ services:
       xpack.security.enabled: false
       # Limit ES to 750MB of memory, heap
       ES_JAVA_OPTS: -Xms750m -Xmx750m
+    command: ["elasticsearch", "-Elogger.level=WARN"]
 
   redis:
     #image: redis:latest-alpine
@@ -24,18 +25,38 @@ services:
 
   mongodb:
     image: mongo:latest
+    # Quieter logging (doesn't work?)
+    command: --quiet
     ports:
       - '27017:27017'
     #volumes:
     #  - dbdata6:/data/db
 
-  norse:
+  server:
     image: norse
-    #depends_on:
-      # huh... doesn't detect when ES comes up
-      # - elasticsearch
-      # I'm too impatient to wait for this?
-      # - redis
+    # CMD ["/bin/sh", "-c", "nx serve server &; nx run client:serve"]
+    command: nx serve server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #environment:
+      # surpresses errors? :(
+      # NODE_ENV: "dev"
+      # waaaaay too noisy, and not helpful?
+      # NODE_DEBUG: "http"
+    ports:
+      - 3001:3001
+
+  client:
+    image: norse
+    command: nx run client:serve
+    #environment:
+      # NODE_ENV: "dev"
+      # NODE_DEBUG: "http"
+    # Doesn't accomplish anything since Docker thinks it's up while
+    #   nx is still re-building, re-caching anyway:
+    # depends_on:
+    #   - server
     ports:
       - 4200:4200
-      - 3001:3001
+
