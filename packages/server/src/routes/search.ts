@@ -45,6 +45,7 @@ router.get('/', async (req, res) => {
     let coords: string[] | null =
       typeof q.coords === 'string' ? q.coords.split(',') : q.coords;
     coords = coords instanceof Array && coords.length === 2 ? coords : null;
+    console.log("JAY1");
 
     if (req.tenant.facets && req.tenant.facets instanceof Array) {
       // Get facets for faceted search for specific tenant
@@ -57,6 +58,7 @@ router.get('/', async (req, res) => {
         };
       });
     }
+    console.log("JAY2");
 
     const queryBuilder: SearchRequest = {
       index: `${q.tenant_id}-results_v2_${q.locale}`,

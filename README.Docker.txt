@@ -6,23 +6,9 @@ docker build -t norse .
 docker compose up
 # Create the Elasticsearch indexes we'll use:
 curl -X PUT "http://localhost:9200/0-taxonomies_v2_en" \
-  -H "Content-Type: application/json" -d '{
-    "mappings": {
-      "properties": {
-        "name": { "type": "search_as_you_type" },
-        "code": { "type": "search_as_you_type" }
-      }
-    }
-  }'
+  -H "Content-Type: application/json" -d @docker/taxonomy_index.json
 curl -X PUT "http://localhost:9200/0-results_v2_en" \
-  -H "Content-Type: application/json" -d '{
-    "mappings": {
-      "properties": {
-        "name": { "type": "search_as_you_type" },
-        "code": { "type": "search_as_you_type" }
-      }
-    }
-  }'
+  -H "Content-Type: application/json" -d @docker/resource_index.json
 
 Now in your local browser:
 * http://localhost:4200/ the Norse web app
@@ -48,6 +34,7 @@ docker compose up
 docker exec -it norse-norse-1 sh
 
 curl -X DELETE "http://localhost:9200/0-taxonomies_v2_en"
+curl -X DELETE "http://localhost:9200/0-results_v2_en"
 
 Discord Nightlight wrote:
 If your docker container is strictly for development then you'll have to run nx run client:serve.

@@ -22,6 +22,10 @@ RUN apk upgrade
 # RUN apk add keycloak
 # keytool      ... there's no way to see the version?
 
+# Misc temporary Jay-debugging things:
+RUN apk add curl
+ENV NODE_ENV="development"
+
 # --------------------------------------------
 # This invalidates all Docker caches, so do this LAST for faster DEV cycles
 COPY . .
@@ -39,11 +43,8 @@ ENV NEXTAUTH_URL="http://localhost:4200"
 ENV NEXTAUTH_SECRET="12345"
 # -------------------------
 
-# Misc temporary Jay-debugging things:
-RUN apk add curl
-
 # ----------------
-# The real "start the client"
+# The real "start the server and client"
 ENV ELASTIC_NODE="http://norse-elasticsearch-1:9200"
 ENV REDIS_URL="redis://norse-redis-1:6379"
 ENV MONGODB_URI="mongodb://norse-mongodb-1:27017"
