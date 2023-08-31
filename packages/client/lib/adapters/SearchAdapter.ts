@@ -31,6 +31,7 @@ export class SearchAdapter extends BaseAdapter {
       page = 1;
     }
 
+    console.log("JAY100 Axios GET /search?" + qs.stringify({...query, page}));
     let { data } = await this.axios.get(
       `/search?${qs.stringify({
         ...query,

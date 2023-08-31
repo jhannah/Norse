@@ -45,17 +45,18 @@ router.get('/', async (req, res) => {
     let coords: string[] | null =
       typeof q.coords === 'string' ? q.coords.split(',') : q.coords;
     coords = coords instanceof Array && coords.length === 2 ? coords : null;
-    console.log("JAY1");
-
-    if (req.tenant.facets && req.tenant.facets instanceof Array) {
+    console.log("JAY1   tenant: " + req.tenant);
+    if (req.tenant && req.tenant.facets && req.tenant.facets instanceof Array) {
       // Get facets for faceted search for specific tenant
       req.tenant.facets?.forEach((data) => {
+        console.log("JAY1.5 " + data);
         aggs[data.facet] = {
           terms: {
             field: `facets.${data.facet}.keyword`,
             size: 10,
           },
         };
+        console.log("JAY1.6 " + data.facet);
       });
     }
     console.log("JAY2");
@@ -211,21 +212,24 @@ router.get('/', async (req, res) => {
     const data = await ElasticClient.search(queryBuilder);
 
     const facets: any = {};
-    if (req.tenant.facets && req.tenant.facets instanceof Array) {
+    if (req.tenant && req.tenant.facets && req.tenant.facets instanceof Array) {
       for (const item of req.tenant.facets) {
         facets[item.facet] = item.name;
       }
     }
 
+    console.log("JAY70");
     cacheControl(res);
+    console.log("JAY71");
     res.json({ search: data, facets });
+    console.log("JAY72");
 
     // Log search data
     logger.log({
       level: 'search',
       message: 'search query',
       sessionId: req.headers['x-session-id'],
-      tenantId: req.tenant.tenantId,
+      tenantId: req.tenant ? req.tenant.tenantId : 0,
       search: {
         type: q.query_type,
         query: q.query_type === 'text' ? q.query : null,
@@ -245,6 +249,7 @@ router.get('/', async (req, res) => {
         distance: q?.distance ?? null,
       },
     });
+    console.log("JAY73");
   } catch (err) {
     logger.error(err);
     res.sendStatus(400);

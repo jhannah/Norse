@@ -23,18 +23,23 @@ docker logs -f norse-norse-1
 Jay's ugly notes while debugging / struggling
 ---------------
 # docker image rm --force norse; docker build --progress=plain -t norse .
+docker compose down server client
 docker container rm norse-server-1 norse-client-1
 docker image rm norse
 # docker build -t norse .
-docker compose up
+docker compose up server client
 
 # docker container stop norse; docker container rm norse; docker run -dp 127.0.0.1:4200:4200 --name norse norse
 
-# Shell into a running norse to poke around:
-docker exec -it norse-norse-1 sh
+# Shell into the client to poke around:
+docker exec -it norse-client-1 sh
 
 curl -X DELETE "http://localhost:9200/0-taxonomies_v2_en"
 curl -X DELETE "http://localhost:9200/0-results_v2_en"
+
+Server search example:
+ http://localhost:3001/search?query=foo&query_label=foo&query_type=text&tenant=7&page=1
+
 
 Discord Nightlight wrote:
 If your docker container is strictly for development then you'll have to run nx run client:serve.

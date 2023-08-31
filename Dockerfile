@@ -37,11 +37,11 @@ COPY . .
 # Next.js:
 ENV NEXT_PUBLIC_MAPBOX_API_KEY=""
 ENV NEXT_PUBLIC_GTM_CONTAINER_ID=""
-ENV NEXT_PUBLIC_API_URL="http://localhost:3001"
+ENV NEXT_PUBLIC_API_URL="http://norse-server-1:3001"
 ENV NEXT_PUBLIC_TENANT_ID="0"
 ENV NEXT_PUBLIC_MAPBOX_STYLE_URL=""
 # NextAuth.js:
-ENV NEXTAUTH_URL="http://localhost:4200"
+ENV NEXTAUTH_URL="http://norse-client-1:4200"
 ENV NEXTAUTH_SECRET="12345"
 # -------------------------
 

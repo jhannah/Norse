@@ -4,6 +4,7 @@ import { parseCookies } from 'nookies';
 import router from 'next/router';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+console.log("JAY20 setting BASE_URL " + process.env.NEXT_PUBLIC_API_URL)
 const TENANT_ID = process.env.NEXT_PUBLIC_TENANT_ID;
 
 const axiosAuth = axios.create({

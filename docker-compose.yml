@@ -40,8 +40,8 @@ services:
       context: .
       dockerfile: Dockerfile
     #environment:
-      # surpresses errors? :(
-      # NODE_ENV: "dev"
+      # production or development cause webpack errors? :(
+      # NODE_ENV: "production"
       # waaaaay too noisy, and not helpful?
       # NODE_DEBUG: "http"
     ports:
@@ -51,7 +51,7 @@ services:
     image: norse
     command: nx run client:serve
     #environment:
-      # NODE_ENV: "dev"
+      # NODE_ENV: "production"
       # NODE_DEBUG: "http"
     # Doesn't accomplish anything since Docker thinks it's up while
     #   nx is still re-building, re-caching anyway:
