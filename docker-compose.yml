@@ -40,7 +40,9 @@ services:
       context: .
       dockerfile: Dockerfile
     #environment:
-      # production or development cause webpack errors? :(
+      # 'production' or 'development' cause webpack errors? :(
+      #   because nx runs Next.js which runs webpack dev server which causes tons of these errors in Chrome:
+      #     WebSocket connection to 'ws://localhost:4200/_next/webpack-hmr' failed:
       # NODE_ENV: "production"
       # waaaaay too noisy, and not helpful?
       # NODE_DEBUG: "http"

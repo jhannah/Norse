@@ -4,11 +4,19 @@ The happy path (more automation to come):
 
 # docker build -t norse .
 docker compose up
+
 # Create the Elasticsearch indexes we'll use:
 curl -X PUT "http://localhost:9200/0-taxonomies_v2_en" \
   -H "Content-Type: application/json" -d @docker/taxonomy_index.json
 curl -X PUT "http://localhost:9200/0-results_v2_en" \
   -H "Content-Type: application/json" -d @docker/resource_index.json
+
+# Add these to your local /etc/hosts
+127.0.0.1 norse-server-1
+127.0.0.1 norse-client-1
+127.0.0.1 norse-elasticsearch-1
+127.0.0.1 norse-redis-1
+127.0.0.1 norse-mongodb-1
 
 Now in your local browser:
 * http://localhost:4200/ the Norse web app
@@ -16,7 +24,8 @@ Now in your local browser:
 * http://localhost:9200/ Elasticsearch
 
 Watch the logs:
-docker logs -f norse-norse-1
+docker logs -f norse-client-1
+docker logs -f norse-server-1
 
 
 ---------------
@@ -26,7 +35,7 @@ Jay's ugly notes while debugging / struggling
 docker compose down server client
 docker container rm norse-server-1 norse-client-1
 docker image rm norse
-# docker build -t norse .
+docker build -t norse .
 docker compose up server client
 
 # docker container stop norse; docker container rm norse; docker run -dp 127.0.0.1:4200:4200 --name norse norse
