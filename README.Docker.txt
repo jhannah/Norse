@@ -12,6 +12,10 @@ curl -X PUT "http://localhost:9200/0-results_v2_en" \
   -H "Content-Type: application/json" -d @docker/resource_index.json
 
 # Add these to your local /etc/hosts
+#   Because we have to support both of these:
+#     browser -> server
+#     browser -> client -> server
+#   This is the cleaneast solution I've found so far.
 127.0.0.1 norse-server-1
 127.0.0.1 norse-client-1
 127.0.0.1 norse-elasticsearch-1
