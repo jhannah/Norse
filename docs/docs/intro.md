@@ -8,6 +8,14 @@ Let's discover **NORSE**.
 
 Get started by [forking the main branch](https://github.com/211-Connect/Norse/fork).
 
+
+
+Jay's notes:
+
+    docker build . --file Dockerfile --tag norse
+
+
+
 ### What you'll need
 
 - [Node.js](https://nodejs.org/en/download/) version 18.x or above:
